@@ -1,4 +1,4 @@
-package example;
+package example.health;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.Test;
@@ -9,15 +9,14 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static helpers.matchers.HealthCheckMatcher.healthy;
-import static helpers.matchers.JsonNodeMatcher.missing;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT, properties = {"spring.profiles.active=production"})
-@RunWith(SpringRunner.class)
 @SuppressWarnings("SpringJavaAutowiredMembersInspection")
-public class ProductionHealthTest {
+@SpringBootTest(webEnvironment = RANDOM_PORT)
+@RunWith(SpringRunner.class)
+public class DefaultHealthTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -30,10 +29,11 @@ public class ProductionHealthTest {
     }
 
     @Test
-    public void shouldNotIncludeDiskSpaceMetricsInUnauthenticatedRequests() throws Exception {
-        JsonNode status = restTemplate
-                .getForObject("/health", JsonNode.class);
+    public void shouldIncludeDiskSpaceMetrics() throws Exception {
+        JsonNode disk = restTemplate
+                .getForObject("/health", JsonNode.class)
+                .with("diskSpace");
 
-        assertThat(status, is(missing("diskSpace")));
+        assertThat(disk, is(healthy()));
     }
 }
