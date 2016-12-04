@@ -1,0 +1,40 @@
+group 'mw-spring-boot'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE"
+    }
+
+    repositories {
+        jcenter()
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+configurations {
+    compile.exclude(module: 'spring-boot-starter-tomcat')
+    compile.exclude(module: 'assertj-core')
+}
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-jetty"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+jar {
+    baseName = 'mw-spring-boot-example'
+}
