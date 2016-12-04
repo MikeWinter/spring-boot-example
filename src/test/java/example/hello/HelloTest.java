@@ -11,9 +11,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
+@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @RunWith(SpringRunner.class)
-@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 public class HelloTest {
     @Autowired
     private TestRestTemplate restTemplate;
@@ -24,5 +24,13 @@ public class HelloTest {
                 .getForObject("/hello", String.class);
 
         assertThat(message, is("Hello World!"));
+    }
+
+    @Test
+    public void shouldGreetTheNamedCaller() throws Exception {
+        String message = restTemplate
+                .getForObject("/hello/{name}", String.class, "Jill");
+
+        assertThat(message, is("Hello Jill!"));
     }
 }
