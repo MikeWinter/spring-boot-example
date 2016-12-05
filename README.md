@@ -75,10 +75,10 @@ To run it, use:
 Endpoints
 ---------
 
-The server binds to localhost on port 8080. The Hello World example is at
+The server binds to localhost on port 8080. The Hello World example is at:
 
-```http://localhost:8080/hello```
+<http://localhost:8080/hello>
 
 To personalise this, add the name in another path segment:
 
-```http://localhost:8080/hello/Foo```
+<http://localhost:8080/hello/Foo>
