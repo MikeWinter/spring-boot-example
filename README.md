@@ -71,3 +71,14 @@ To build a new image, run:
 To run it, use:
 
 ```docker run -p 8080:8080 spring-boot/example:latest```
+
+Endpoints
+---------
+
+The server binds to localhost on port 8080. The Hello World example is at
+
+```http://localhost:8080/hello```
+
+To personalise this, add the name in another path segment:
+
+```http://localhost:8080/hello/Foo```
