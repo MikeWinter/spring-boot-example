@@ -52,6 +52,12 @@ classpath are rebuilt, use the `bootRun` task:
 
 ```./gradlew bootRun```
 
+To specify the configuration profile, pass the name to the
+`spring.profiles.active` configuration variable. For example, to run in
+production:
+
+```./gradlew bootRun -Dspring.profiles.active=production```
+
 Deployment
 ----------
 

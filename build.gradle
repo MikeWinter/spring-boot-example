@@ -44,3 +44,7 @@ jar {
 bootRepackage {
     excludeDevtools = true
 }
+
+bootRun {
+    systemProperties = System.properties
+}
