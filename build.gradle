@@ -22,8 +22,10 @@ configurations {
 
 apply plugin: 'idea'
 apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
 
+mainClassName = 'example.Application'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -35,6 +37,10 @@ dependencies {
     compile("org.springframework.boot:spring-boot-devtools")
 
     testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+run {
+    systemProperties = System.properties
 }
 
 jar {
