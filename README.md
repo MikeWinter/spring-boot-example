@@ -47,6 +47,11 @@ Thanks to the Spring Boot Gradle plugin, the `build` task will create a fat Jar
 at `build/libs/mw-spring-boot-example-1.0-SNAPSHOT.jar` that includes the
 necessary runtime dependencies.
 
+To run the server with a watcher that will restart it when items on the
+classpath are rebuilt, use the `bootRun` task:
+
+```./gradlew bootRun```
+
 Deployment
 ----------
 
