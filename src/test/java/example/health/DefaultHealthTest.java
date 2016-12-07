@@ -13,9 +13,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @RunWith(SpringRunner.class)
+@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 public class DefaultHealthTest {
     @Autowired
     private TestRestTemplate restTemplate;
