@@ -2,7 +2,7 @@
 
 REPO_NAME='spring-boot-example'
 
-sudo docker ps | grep $REPO_NAME | awk '{print $1}' | xargs -n 1 docker rm -f
+sudo docker ps | grep $REPO_NAME | awk '{print $1}' | xargs -n 1 sudo docker rm -f
 
 ./gradlew clean build
 
