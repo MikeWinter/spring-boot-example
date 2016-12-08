@@ -4,10 +4,14 @@ version '1.0-SNAPSHOT'
 buildscript {
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE"
+        classpath "org.springframework.build.gradle:propdeps-plugin:0.0.7"
     }
 
     repositories {
         jcenter()
+        maven {
+            url 'http://repo.spring.io/plugins-release'
+        }
     }
 }
 
@@ -18,6 +22,12 @@ repositories {
 configurations {
     compile.exclude(module: 'spring-boot-starter-tomcat')
     compile.exclude(module: 'assertj-core')
+}
+
+configure(allprojects) {
+    apply plugin: 'propdeps'
+    apply plugin: 'propdeps-maven'
+    apply plugin: 'propdeps-idea'
 }
 
 apply plugin: 'idea'
@@ -34,10 +44,14 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-jetty"
     compile "org.springframework.boot:spring-boot-starter-actuator"
 
-    compile("org.springframework.boot:spring-boot-devtools")
+    compile "org.springframework.boot:spring-boot-devtools"
+
+    optional "org.springframework.boot:spring-boot-configuration-processor"
 
     testCompile "org.springframework.boot:spring-boot-starter-test"
 }
+
+compileJava.dependsOn(processResources)
 
 run {
     systemProperties = System.properties
