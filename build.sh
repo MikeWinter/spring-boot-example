@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-docker ps | grep spring-boot-example | awk '{print $1}' | xargs -n 1 docker rm -f
+REPO_NAME='spring-boot-example'
+
+sudo docker ps | grep $REPO_NAME | awk '{print $1}' | xargs -n 1 docker rm -f
 
 ./gradlew clean build
 
-docker build -t alpine/spring-boot-example .
-docker run -p 8080:8080 -d alpine/spring-boot-example:latest
+sudo docker build -t alpine/$REPO_NAME .
+sudo docker run -p 8080:8080 -d alpine/$REPO_NAME:latest
