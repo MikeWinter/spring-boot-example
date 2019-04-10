@@ -16,23 +16,23 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @SpringBootTest(webEnvironment = RANDOM_PORT, properties = {"spring.profiles.active=production"})
 @RunWith(SpringRunner.class)
-@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 public class ProductionHealthTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Test
-    public void shouldBeHealthyAfterLaunch() throws Exception {
+    public void shouldBeHealthyAfterLaunch() {
         JsonNode status = restTemplate
-                .getForObject("/health", JsonNode.class);
+                .getForObject("/actuator/health", JsonNode.class);
 
         assertThat(status, is(healthy()));
     }
 
     @Test
-    public void shouldNotIncludeDiskSpaceMetricsInUnauthenticatedRequests() throws Exception {
+    public void shouldNotIncludeDiskSpaceMetricsInUnauthenticatedRequests() {
         JsonNode status = restTemplate
-                .getForObject("/health", JsonNode.class);
+                .getForObject("/actuator/health", JsonNode.class)
+                .with("details");
 
         assertThat(status, is(missing("diskSpace")));
     }

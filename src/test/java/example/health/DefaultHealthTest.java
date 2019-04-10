@@ -15,23 +15,23 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @RunWith(SpringRunner.class)
-@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 public class DefaultHealthTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Test
-    public void shouldBeHealthyAfterLaunch() throws Exception {
+    public void shouldBeHealthyAfterLaunch() {
         JsonNode status = restTemplate
-                .getForObject("/health", JsonNode.class);
+                .getForObject("/actuator/health", JsonNode.class);
 
         assertThat(status, is(healthy()));
     }
 
     @Test
-    public void shouldIncludeDiskSpaceMetrics() throws Exception {
+    public void shouldIncludeDiskSpaceMetrics() {
         JsonNode disk = restTemplate
-                .getForObject("/health", JsonNode.class)
+                .getForObject("/actuator/health", JsonNode.class)
+                .with("details")
                 .with("diskSpace");
 
         assertThat(disk, is(healthy()));

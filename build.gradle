@@ -1,19 +1,13 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.4.RELEASE'
+    id 'java'
+    id 'application'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
 group 'mw-spring-boot'
 version '1.0-SNAPSHOT'
-
-buildscript {
-    dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE"
-        classpath "org.springframework.build.gradle:propdeps-plugin:0.0.7"
-    }
-
-    repositories {
-        jcenter()
-        maven {
-            url 'http://repo.spring.io/plugins-release'
-        }
-    }
-}
 
 repositories {
     jcenter()
@@ -24,29 +18,19 @@ configurations {
     compile.exclude(module: 'assertj-core')
 }
 
-configure(allprojects) {
-    apply plugin: 'propdeps'
-    apply plugin: 'propdeps-maven'
-    apply plugin: 'propdeps-idea'
-}
-
-apply plugin: 'idea'
-apply plugin: 'java'
-apply plugin: 'application'
-apply plugin: 'org.springframework.boot'
-
 mainClassName = 'example.Application'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+    compile "org.springframework.boot:spring-boot-starter"
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-jetty"
     compile "org.springframework.boot:spring-boot-starter-actuator"
 
     compile "org.springframework.boot:spring-boot-devtools"
 
-    optional "org.springframework.boot:spring-boot-configuration-processor"
+    compile "org.springframework.boot:spring-boot-configuration-processor"
 
     testCompile "org.springframework.boot:spring-boot-starter-test"
 }
@@ -55,14 +39,6 @@ compileJava.dependsOn(processResources)
 
 run {
     systemProperties = System.properties
-}
-
-jar {
-    baseName = 'mw-spring-boot-example'
-}
-
-bootRepackage {
-    excludeDevtools = true
 }
 
 bootRun {
